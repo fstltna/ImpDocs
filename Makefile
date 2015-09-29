@@ -1,6 +1,36 @@
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/root/bin"
 
-all: conimp.doc conimp.pdf telimp.doc telimp.pdf impserv.doc impserv.pdf
+all: impcre.doc impcre.pdf hosting.doc hosting.pdf communication.doc communication.pdf conimp.doc conimp.pdf telimp.doc telimp.pdf impserv.doc impserv.pdf
+
+impcre.doc: impcre.mm
+	@echo "Building ImpCre doc file"
+	@groff -mm -Tascii impcre.mm -Z|grotty -c > impcre.doc
+	@echo "---- Built"
+
+impcre.pdf: impcre.mm
+	@echo "Building ImpCre PDF file"
+	@groff -p -t -mm impcre.mm | gropdf > impcre.pdf 2>/dev/null
+	@echo "---- Built"
+
+hosting.doc: hosting.mm
+	@echo "Building Hosting doc file"
+	@groff -mm -Tascii hosting.mm -Z|grotty -c > hosting.doc
+	@echo "---- Built"
+
+hosting.pdf: hosting.mm
+	@echo "Building Hosting PDF file"
+	@groff -p -t -mm hosting.mm | gropdf > hosting.pdf 2>/dev/null
+	@echo "---- Built"
+
+communication.doc: communication.mm
+	@echo "Building Communication doc file"
+	@groff -mm -Tascii communication.mm -Z|grotty -c > communication.doc
+	@echo "---- Built"
+
+communication.pdf: communication.mm
+	@echo "Building Communication PDF file"
+	@groff -p -t -mm communication.mm | gropdf > communication.pdf 2>/dev/null
+	@echo "---- Built"
 
 conimp.doc: conimp.mm
 	@echo "Building ConImp doc file"

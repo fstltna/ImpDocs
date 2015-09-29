@@ -1,0 +1,242 @@
+.PGFORM 80 10000 0 1
+.PGNH
+ImpCre - Imperium world builder
+.sp
+DESCRIPTION:
+.DS 1
+(Where the term "world" is used, it refers to the whole Imperium
+"universe", meaning all planets, stars, black holes, etc. A reference
+to a specific item will be stated like "Planet xxx".)
+.sp
+ImpCre is the utility used to build up worlds for Imperium. ImpCre creates
+a world by checking various environment variables (usually set through a
+shell script) to determine what kind of world to create. Then it uses
+heuristics to determine whether the world it has generated is "fair", and
+meets your requirements. It should therefore (hopefully ?) not be necessary
+to visually look at the world it has generated, although you may do so
+if you wish.
+.DE
+NOTES:
+.DS 1
+Note that a 128x128 world, using the defaults, will generate over
+2.8 megabytes of data, on the average, and that a 256x256 world
+will generate over 12 megabytes of data, on the average.
+.sp
+However, due to the way that ImpCre generates the planet data, it will
+seldom be required to actually read all this data, and so game access
+is still quite fast.
+.sp
+Basically, ImpCre builds the planets (and stars, but I will just call
+them planets here) working from the top-left corner, moving downwards
+as you would read an english page, generating any planets needed by
+the sector as it goes. Therefore it will seldom be required to read
+more than a few objects which occur next to each other in the
+database, and due to the ImpServ caches, file seeking should be
+minimized. For example:
+.sp
+     Sector 1,3 might contain planets 25-31
+     Sector 1,4 might contain planets 32-35
+.sp
+In order to maintain this data layout and optimization, the deity
+should refrain from adding any planets or stars to a sector as much
+as possible, or add them only in relatively unused sectors where there
+won't be much need to access them. For example, if the deity adds
+even one planet to a sector, you could end up with something like
+the following:
+.sp
+     Sector 1,3 contains planets 25-31 *AND* 62341
+.sp
+which will now require a jump much farther into the planet file each
+time the sector is updated. How long the jump takes will depend on
+how fast your hard drive and controller are; how fragmented your
+planet file is, how many users are also playing; etc. It will normally
+only take less than a second, but this can add up if you have many
+such gaps.
+.DE
+Creating a world
+.DS 1
+You should first start out by copying one of the existing example
+shell scripts in the "ImpCre" directory to a name that represents
+the type of configuration you intend it to have, such as "dense1.sh"
+or "megastars.sh". Then edit the file and change the various settings
+to whatever you like.
+.sp
+     - The many settings you may change are described below. -
+.sp
+Once you have gotten all the options the way you want them, you
+simply execute the shell script in the directory you want the "base"
+(telegrams, mainly) to be located in, and ImpCre will try it's best to
+create the world you requested.
+.sp
+If it is unable to create what it considers a "fair" world, it will
+let you know, and you will have to try changing the values in the
+shell script and running it again. If ImpCre fails once with a certain
+group of settings don't give up. It may be possible to create the world
+if you try it again with ImpCre using a different random number seed.
+.sp
+If you create a world in a directory that was a previously used to
+hold an Imperium world you should be sure to delete all the news
+("news.*" files) and propaganda ("prop.*" files).
+.sp
+If ImpCre is able to create a suitable world, it will be displayed
+to stdout, and you will be asked if you wish to create the world
+files. If you like the world you can answer "yes" and ImpCre will
+write the world for you. Make sure you have enough disk space!
+.DE
+Tunable World Parameters
+.DS 1
+There are many settings that you may change while deciding what you
+want your new world to be like. Additionally, there are MANY more that
+may be changed from within Imperium itself after the world has been
+created. At one time I was considering allowing you to specify them
+all at world build time, but just a quick estimate told me it would
+require over 20 80x25 screens just to present them all. If you really
+think you would like this ability, let me know. The settings that you
+may change from within Imperium are listed and described in the
+"Factors" doc file, should you wish to change them.
+.sp
+Following is a description of what each of the items you may enter do.
+.sp
+Horizontal size of the world:
+.br
+This is the number of "galactic" sectors WIDE the world is. Remember
+that each galactic sector is broken down into 10 "subsectors"
+horizontally. Minimum of 10, max of 255.
+.sp
+Vertical size of the world:
+.br
+This is the number of "galactic" sectors TALL the world is. Remember
+that each galactic sector is broken down into 10 "subsectors"
+vertically. Minimum of 10, max of 255.
+.DS 1
+These two settings will affect other parts of the world
+generation, such as the maximum number of players, etc.
+Also, the two sizes do NOT have to be equal.
+.DE
+MaxTries:
+.br
+This will be determined automagically based on the world size, but if
+you need to override it due to your settings affecting star, planet,
+or "other" density, you may. Basically this is the number of times
+that ImpCre should loop while trying to construct the initial layout
+of the world. If a world can't be created after this many placement
+attempts, ImpCre will try to start over from scratch. If you want to
+see what number is currently being used, specify the "-v" flag on the
+ImpCre command-line.
+.sp
+Number of players:
+.br
+This is the number of players that you want to allow before "reusing"
+idle accounts. This can be increased later, if you run out of virgin
+player slots, but don't want to remove idle players. Primarily this
+is just here to give you an idea of about how many players can use the
+game without having to bump into each other all the time. If you find
+that some players aren't very active, you can increase the limit
+later.
+.sp
+Percent of "other" sectors:
+.br
+This the percentage of the total number of galactic sectors that should
+be black holes or super novas. This includes all 100 "subsectors", so
+each "other" sector that exists in the world will reduce your usable
+subsectors by 100, and will increase the odds that ImpCre will not be
+able to place things fairly.
+.sp
+Percent of "other" sectors that should be black holes:
+.br
+This will determine how many of the "other" sectors that get created
+will be black holes versus super novas. Supernovas instantly destroy
+any ship that passes through them. Black holes can do various random
+things like destroying a ship, causing a ship to appear in another
+part of the world, changing the owner of the ship, contaminating the
+ship with the plague, etc.
+.sp
+Percent of sectors with at least 1 star:
+.br
+This is the percentage of sectors that will have at least one star
+in them. A sector with no stars will never have any planets in the
+sector.
+.sp
+Percent of sectors with more than 1 star:
+.br
+This is the percentage of sectors (with the maximum being the above
+percentage) that have more than one star in them. Sectors with more
+than one star will tend to have mineral-rich but atmosphere-poor
+planets.
+.sp
+Percent of sectors with at least 1 planet:
+.br
+This is the percentage of sectors that have at least one planet
+in them.
+.sp
+Percent of sectors with more than 4 planets in them:
+.br
+This is the percentage of sectors with more than 4 planets in them,
+with the maximum being the above percentage.
+.sp
+Minimum distance for home planets:
+.br
+This is the number of sectors away that a home planet must be from
+any other home planet. You must keep this in mind for smaller sized
+worlds it may be impossible to place a home planet for each of the
+races if this value is too large.
+.sp
+Minimum number of nearby planets:
+.br
+This is the number of unclaimed planets that must be near a home
+planet for ImpCre to consider that location "fair" to the home
+planet.
+.sp
+Maximum distance for those planets:
+.br
+This is how far away the planets may be from the home planet.
+.sp
+Maximum spread of planets:
+.br
+This is the maximum difference between the home planet with the most
+nearby planets and the home planet with the least number of nearby
+planets. This helps to assure that all planets are placed fairly.
+.sp
+Maximum connect time per day:
+.br
+This is the number of minutes each player may use the game, from
+midnight to midnight.
+.sp
+Default starting money:
+.br
+The amount of money that each of the players will have at the start of
+the game.
+.sp
+You may also specify the names of each of the races, along with the
+name of their home planet. These do nothing except identify the race,
+and add some flavor, so feel free to change the names to something
+else (red team, etc).
+.sp
+There are four settings that are very important:
+.DS 1
+.VL 13
+.LI Game_Name:
+The name of your game if you are going to list
+it in the global directory. If not you can ignore this.
+.LI Game_Host:
+The host name of your game if you are going to list
+it in the global directory. If not you can ignore this.
+.LI Game_Port:
+The port of your game if you are going to list it in
+the global directory. If not you can ignore this.
+.LI Game_Secret:
+The "secret" key to prevent someone from posting to the
+global directory, if you are going to list it. If not
+you can ignore this.
+.LE 1
+Once these are set you can use the command "ImpCtrl -s" to publish
+your game in the directory. More on this in the Hosting doc file.
+.sp
+.DE
+Lastly, you may enter the winner of the last game. If this is the
+first game, or you didn't have a conclusive ending to the last game,
+you can just leave it blank, or you can make up some non-existant
+name. This field should probably be the name(s) of the winning
+race(s), but could also be the name(s) of the winning player(s), if
+there were just a few that were powerful.
+.DE
