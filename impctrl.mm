@@ -1,0 +1,93 @@
+.PGFORM 80 10000 0 1
+.PGNH
+ImpCtrl
+
+What is ImpCtrl:
+
+Imperium was designed to try and fill as many of the requests for new
+features in Amiga Empire as possible. One of the most common request (from
+people actually running the game as opposed to people who played it) was
+some way of executing certain commands at predetermined times from outside the
+game. ImpCtrl allows you to do this.
+.sp
+ImpCtrl (Imperium Control) is a run-time utility mainly intended for use
+in "cron" tables. By "run-time" we mean that it requires the server to be up
+and accepting new clients. ImpCtrl does not "control" or modify the database
+files directly - it goes through the server just like a "normal" player.
+
+ImpCtrl commands/options:
+
+Following are the various command-line arguments you may pass ImpCtrl when
+starting it up. You may also put multiple commands together (using the standard
+Unix "-" format) in a group: IE: "-lumPL" instead of "-l -u -m -P -L".
+.VL 5
+.LI -l:
+Indicates the start of a command or series of commands that will be
+updating the database, and so should be protected from shutdown
+requests.
+.LI -L:
+Indicates that you are done executing commands that will change the
+various data files. You are free to use as many "l" and "L" pairs as
+you wish to block sets of operations.
+.LI -p:
+Requests the system to print out the current power report. Note that this
+MAY request input from you, and so should NOT be used in a cron script.
+.LI -P:
+Executes a "power force" command. This command will fail if someone is
+already updating the power report.
+.LI -u:
+Updates all the planets.
+.LI -m:
+Updates all the robot miners.
+.LI -f:
+Flushes the servers buffers to disk. This will not be needed if your
+server is set to flush buffers on client termination, or the deity
+selectable flag has been turned on that flushes buffers when a player
+logs out.
+.LI -s:
+Sends the info on the server to the global registery - this helps
+people find your game! Please do not run this more than once a day...
+.LE 1
+servlog=<on>|<off> [on]
+.DS 1
+Indicates whether or not ImpCtrl should generate server log files for it's
+operation. This will prevent your log file from being filled with
+useless started/terminated messages.
+.DE
+Additionally, you may select one of two options that control what game (if you
+have more than one running at a time) ImpCtrl should connect to:
+.VL 5
+.LI -t:
+Will connect ImpCtrl to the "test" game.
+.LE 1
+port=<port name>
+.DS 1
+Will connect you to the game on the specified port.
+.DE
+Also note the following: the order of commands specified WILL BE USED.
+Thus you must make sure and place them in the order you wish them executed.
+.sp
+Misc. info:
+.sp
+When you run ImpCtrl you will get the output (if any) commands printed to
+stdout, you may feel free to redirect this to a file (to make a hard copy
+of a power report, for example), or to /dev/null if you don't want to see it.
+.sp
+Why isn't ImpCtrl combined with ImpShut:
+.sp
+ImpCtrl and ImpShut perform two different tasks, although the name of
+"control" might lead you to think otherwise. ImpShut is a utility that is
+specifically designed to talk to the server, and knows nothing about the
+Imperium game itself. It doesn't even get linked with the Imperium library.
+.sp
+ImpCtrl on the other hand DOES know about the Imperium game, and also
+makes use of the Imperium library. It is actually a full "client", except that
+it uses a different entry point into the Imperium library which allows it
+to do certain things without requiring the deity to set up a special "player"
+that is used for "owning" utilities like ImpCtrl.
+.sp
+.VL 4
+.LI ***
+Be sure to read the file "security.doc" for information on setting up
+the ic.allow file properly!
+.LE 1

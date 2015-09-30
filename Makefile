@@ -1,6 +1,16 @@
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/root/bin"
 
-all: impcre.doc impcre.pdf hosting.doc hosting.pdf communication.doc communication.pdf conimp.doc conimp.pdf telimp.doc telimp.pdf impserv.doc impserv.pdf
+all: impctrl.doc impctrl.pdf impcre.doc impcre.pdf hosting.doc hosting.pdf communication.doc communication.pdf conimp.doc conimp.pdf telimp.doc telimp.pdf impserv.doc impserv.pdf
+
+impctrl.doc: impctrl.mm
+	@echo "Building ImpCtrl doc file"
+	@groff -mm -Tascii impctrl.mm -Z|grotty -c > impctrl.doc
+	@echo "---- Built"
+
+impctrl.pdf: impctrl.mm
+	@echo "Building ImpCtrl PDF file"
+	@groff -p -t -mm impctrl.mm | gropdf > impctrl.pdf 2>/dev/null
+	@echo "---- Built"
 
 impcre.doc: impcre.mm
 	@echo "Building ImpCre doc file"
