@@ -33,5 +33,7 @@ Set the maximum play time
 .PP
 -e<editor>:
 Set the external editor, if any. For example if using the
+.FT B
 VI
+.FT R
 editor.
