@@ -1,33 +1,42 @@
-.PGFORM 80 10000 0 1
-.PGNH
-Imperium - Hosting an Imperium Game
-.sp
+.PRINTSTYLE TYPESET
+.PAPER letter
+.L_MARGIN .5i
+.R_MARGIN .5i
+.T_MARGIN .25i
+.TITLE "Imperium - Hosting an Imperium Game"
+.AUTHOR "Marisa Giancarla"
+.COPYRIGHT DOC_COVER "1994-2016 Marisa Giancarla"
+.START
 "Normal" summary of hosting a game:
-.VL 4
-.LI 1)
+.LIST roman8
+.ITEM
 Decide where to put your data files
-.LI 2)
+.ITEM
 Create the universe with ImpCre. See the ImpCre manual for info on how
 to use it. For the first game try a 10x10 universe.
 NOTE: If you are creating a world in the same directory as a previous
 world, you MUST delete the old news and propaganda files yourself.
 The best way to do this is to type:
-.DS 1
-rm news.* prop.*
-.DE
+.PP
+.CODE
+    rm news.* prop.*
+.CODE OFF
+.PP
 If you fail to do this you may get news articles that are nonsensical,
 or that cause great confusion.
-.LI 3)
+.ITEM
 Run the Imperium server. See the ImpServ docs for available startup options
 and instructions on how to use it.
-.LI 4)
+.ITEM
 Run the client program "ConImp" and try the game out. You may want to
 create a shell "wrapper" that turns on desired options (different port,
 no "log" command, etc) and replace the public "ConImp" link with your
 shell wrapper.
-.LI 4.5)
+.LIST roman8
+.ITEM
 Use the "TelImp" client to accept incoming game players from the internet
-.LI 5)
+.LIST OFF
+.ITEM
 Shut down the server when done playing. Use the "ImpShut" program to
 do this. You MUST do this step before turning the machine off or
 rebooting. Failure to do so may result in the game files becoming
@@ -37,7 +46,7 @@ not recommended as it may bring the game down with players still
 logged in. Note that on most system doing a proper system "shutdown" will
 cause ImpServ to exit cleanly, but will not assure that everyone is out
 of the game...
-.LI 6)
+.ITEM
 Manage your log files. Imperium normally writes to a log file each time the
 server is started or shut down, and when each player logs in and out, along
 with any "critical" errors that occur. By default this file is called
@@ -45,147 +54,178 @@ with any "critical" errors that occur. By default this file is called
 wish you can delete this log file before you start the server, or you
 can keep it to run through a utility that displays graphs of game usage
 etc. (You have to supply this utility).
-.LE 1
+.LIST OFF
+.PP
+.PP
 When you are ready to play the game again, just go back to step 3. You can
 also leave the server running all the time. The server uses no CPU time when
 someone isn't playing (unless you are running ImpCtrl via cron, which wouldn't
 work if the server was down anyway).
-
-How much file space you will need
-
+.PP
+.PP
+==== How much file space you will need ====
+.PP
+.PP
 Normally you will place the files all in one directory, but it is possible to
 put them in several directories, and across multiple file systems if you
 wish. The files used by the game (and their sizes) are:
-.VL 17
-.LI imperium.files:
+.LIST roman8
+.ITEM
+imperium.files:
 contains the paths to the other files/directories used by
 Imperium. Normally not present, which causes ImpServ to
 look in the current directory for everything.
-.LI imp.world:
+.ITEM
+imp.world:
 (.9k) various stats defining the world, the options the deity
 has set, various factors, etc. In short, all the "global"
 settings that are the same for all players.
-.LI imp.player:
+.ITEM
+imp.player:
 (700k) contains all the "player" structures for the game.
 These structures contains all the "player specific" settings.
-.LI imp.sector:
+.ITEM
+imp.sector:
 (variable) an array of all the "galactic" sectors of the
 world. Each "sector" is about 130 bytes, so a 10x10 world
 will have a 13k sector file. Once created, this file will
 never change size.
-.LI imp.planet:
+.ITEM
+imp.planet:
 (variable) contains all the planets and stars in the game.
 Each entry is about 148 bytes, and a 16x16 world will have
 about 1100 or so entries (depending on the density chosen by
 ImpCre), thus needing about 495k for the planets. Once
 created, this file rarely changes size.
-.LI imp.ship:
+.ITEM
+imp.ship:
 (varies) - contains all of the ships in the world. Each ship
 is about 416 bytes long. A game that lasts for a while may
 have over a thousand ships (400k+) while smaller games will
 probably have less than 500.
-.LI imp.bigitems:
+.ITEM
+imp.bigitems:
 (varies) contains all the "big" items in the world, such
 as engines, weapons, etc. Each entry is about 24 bytes.
-.LI imp.fleet:
+.ITEM
+imp.fleet:
 contains all the fleets in the world. Each fleet is about
 400 bytes long. Most players probably use less than 6
 during a game, but once created and assigned, the fleet
 exists and takes up space for the rest of the game.
-.LI imp.loan:
+.ITEM
+imp.loan:
 contains all the loans in the world. Each loan is about
 17 bytes long.
-.LI imp.offer:
+.ITEM
+imp.offer:
 contains all the offers (lots) in the world. Each offer
 is about 20 bytes, but most players to not put things up
 for sale on all of their planets, so this file normally is
 fairly small.
-.LI imp.power:
+.ITEM
+imp.power:
 (varies) contains the current power report for the game.
 Requires about 85 bytes per player in use.
-.LI telegrams.XXX:
+.ITEM
+telegrams.XXX:
 telegram files for each player. The size is determined by
 the number of undeleted telegrams the player has. Once the
 player reads and deletes the telegrams the file is erased
 and becomes 0 length.
-.LI news.XXX:
+.ITEM
+news.XXX:
 contains news item for the given "day". News items are
 generated automatically by the game. Each item is about
 8 bytes long. Old news files can be deleted to save space,
 if you wish.
-.LI prop.XXX:
+.ITEM
+prop.XXX:
 propaganda files created by the "propaganda" command.
 Each item here may be up to 1.5k, and a new file is created
 for each "day". You may delete propaganda files to save
 space.
-.LE 1
+.LIST OFF
+.PP
+.PP
 You can also create 6 files in the directory where you start the server and
 they will be used, if present:
-.VL 17
-.LI imp.conMess:
+.PP
+.LIST roman8
+.ITEM
+imp.conMess:
 printed when a player first connects, before asking for
 the players name. Normally used as a "banner".
-.LI imp.logMess:
+.ITEM
+imp.logMess:
 printed once a player logs in, but before they get to the
 "Command" prompt.
-.LI imp.hangMess:
+.ITEM
+imp.hangMess:
 printed when a player logs out.
-.LI imp.bulletin:
+.ITEM
+imp.bulletin:
 printed between the banner of the newspaper and any
 headlines.
-.LI imp.access:
+.ITEM
+imp.access:
 printed if someone tries to log in, but is unsuccessful.
 It is used to tell people how to join the game.
-.LI imp.newplay:
+.ITEM
+imp.newplay:
 printed when a "new player" logs in, one time only. Use
 this to give "welcome new player" type messages.
-.LE 1
+.LIST OFF
+.PP
+.PP
 Using the "imperium.files" file.
-.sp
+.PP
+.PP
 If you do not have space on one file system for the programs, data files,
 online help and docs, etc. you may want to use the "imperium.files" file to
 tell the server to look for the files in another location.
-.sp
+.PP
 The default paths for finding help and doc files are "../Help/" and "../Doc/",
 meaning that they are expected to be in a directory next to the data directory
 on the directory tree, for example:
-.DS 1
-.VERBON
-       root
-.br
-   /     |     \\
-.br
-doc    help    data
-.VERBOFF
-.DE
+.CODE
+
+           root
+       /     |     \\
+    doc    help    data
+.CODE OFF
+.PP
 All help files must end in ".hlp" and all doc files must end in ".doc". This
 is because Imperium adds the extensions to the names that the user requests,
 preventing them from looking at other files in the same directory.
-.sp
+.PP
 To put the files in different directories you need to create a file called
 "imperium.files" in the directory you will be starting the server in. The file
 should contains one path per line, in the following order:
-.sp
-.VERBON
-full path to log file (include name of log file!)
-full path to world file (include name of file!)
-full path to player file (include name of file!)
-full path to sector file (include name of file!)
-full path to planet file (include name of file!)
-full path to ship file (include name of file!)
-full path to big item file (include name of file!)
-full path to fleet file (include name of file!)
-full path to loan file (include name of file!)
-full path to offer file (include name of file!)
-path to help files, ending in "/"
-path to doc files, ending in "/"
-.VERBOFF
-.sp
+.PP
+.PP
+    ----
+    full path to log file (include name of log file!)
+    full path to world file (include name of file!)
+    full path to player file (include name of file!)
+    full path to sector file (include name of file!)
+    full path to planet file (include name of file!)
+    full path to ship file (include name of file!)
+    full path to big item file (include name of file!)
+    full path to fleet file (include name of file!)
+    full path to loan file (include name of file!)
+    full path to offer file (include name of file!)
+    path to help files, ending in "/"
+    path to doc files, ending in "/"
+.PP
+.PP
 Telegram, news, and propaganda files will always be found (and looked for) in
 the same directory you start ImpCre or the ImpServ (where the "imperium.files"
 file lives). Here is a sample "imperium.files" file:
-.sp
-.VERBON
+.PP
+.CODE
+.PP
+    ----
     /usr/games/lib/imperium/game1/imp.log
     /usr/games/lib/imperium/game1/imp.world
     /usr/games/lib/imperium/game1/imp.player
@@ -198,11 +238,12 @@ file lives). Here is a sample "imperium.files" file:
     /usr/games/lib/imperium/game1/imp.offer
     /usr/games/lib/imperium/Help/
     /usr/games/lib/imperium/Doc/
-.VERBOFF
-.sp
+.CODE OFF
+.PP
+.PP
 The clients do not need to know where the files are located, since they only
 access them through the server.
-.sp
+.PP
 If you wish to run multiple games at the same time (say a small fast game for
 new players as well as a bigger game for more experienced players) you may use
 the "port" command to specify any port name you wish for the server and clients.
@@ -211,16 +252,18 @@ wish to start up for that game. To use this simply put "port=<portname>" on
 the command line of ImpServ and any client you wish to use to access this
 server. You MUST have separate data files for each game, but you may share
 the doc and help files among all games.
-.sp
+.PP
 You may wish to start up the server and telimp client at boot time. See the
 files in InitScripts for info on doing this.
-.sp
+.PP
 To keep the server from starting up create a file called nostart in
 /usr/local/lib/imperium/data (or the directory you are starting the server
 in). Remove it when you want the server to start again.
-.sp
+.PP
+.PP
 ==== Public Game Directory ====
-.sp
+.PP
+.PP
 As of version 1.4 Imperium has a public directory of active games which can
 help you find more players. You can find more info on this in the impcre doc
 file. You will want to change the defaults before you create the world, or
@@ -228,11 +271,11 @@ use the "edit world" command to change it after the world is created. It is
 important to not change these values after the first time you publish your
 game status as the old record will still exist until it reaches the deadline
 for updates and is purged.
-.sp
+.PP
 You should consider putting the command "ImpCtrl -s" in a cron job that
 executes once per day. Please do not run it more often and you can run it
 from the command line manually as long as you run it once withn a 15 day
 interval (the default time for entries to be purged for inactivity).
-.sp
+.PP
 You can view the directory here: https://EmpireDirectory.net/imppub.html
 
