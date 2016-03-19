@@ -1,6 +1,6 @@
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/root/bin"
 
-all: impctrl.pdf impcre.pdf hosting.pdf communication.pdf conimp.pdf telimp.pdf impserv.pdf
+all: impctrl.pdf impcre.pdf hosting.pdf communication.pdf conimp.pdf telimp.pdf impserv.pdf impshut.pdf
 
 impctrl.pdf: impctrl.mom
 	@echo "Building ImpCtrl PDF file"
@@ -35,5 +35,10 @@ telimp.pdf: telimp.mom
 impserv.pdf: impserv.mom
 	@echo "Building ImpServ PDF file"
 	@pdfmom impserv.mom > impserv.pdf
+	@echo "---- Built"
+
+impshut.pdf: impshut.mom
+	@echo "Building ImpShut PDF file"
+	@pdfmom impshut.mom > impshut.pdf
 	@echo "---- Built"
 
