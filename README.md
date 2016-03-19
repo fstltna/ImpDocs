@@ -1,2 +1,2 @@
 # ImpDocs
-Source code to the Imperium doc files. Generates text and PDF versions of each
+Source code to the Imperium doc files. Generates PDF version of each
