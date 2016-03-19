@@ -1,0 +1,22 @@
+.PRINTSTYLE TYPESET
+.PAPER letter
+.L_MARGIN .5i
+.R_MARGIN .5i
+.T_MARGIN .25i
+.TITLE "TelImp - Telnet Client"
+.AUTHOR "Marisa Giancarla"
+.COPYRIGHT DOC_COVER "1994-2016 Marisa Giancarla"
+.START
+.CODE
+TelImp
+.CODE OFF
+.PP
+.PP
+No options to this. Just run it with nohup or screen and it
+will start listening to the default imperium port (3458)
+.PP
+.PP
+See Also:
+.PP
+Hosting
+
