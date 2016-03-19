@@ -1,0 +1,37 @@
+.PRINTSTYLE TYPESET
+.PAPER letter
+.L_MARGIN .5i
+.R_MARGIN .5i
+.T_MARGIN .25i
+.TITLE "ConImp - Console Client"
+.AUTHOR "Marisa Giancarla"
+.COPYRIGHT DOC_COVER "1994-2016 Marisa Giancarla"
+.START
+.CODE
+ConImp [-a] [-t] [n<name>] [m<time>] [e<editor>]
+     -a = non-ANSI terminal
+     -t = use test port
+     -n = force user name
+     -m = maximum play time
+     -e<editor> = allow external editor
+.CODE OFF
+.PP
+Where
+.PP
+-a:
+If your terminal is not ANSI compatible use this to prevent
+ANSI codes being sent
+.PP
+-t:
+Use the testing port
+.PP
+-n<name>:
+Force the username to this user, used in BBS doors
+.PP
+-m<time>:
+Set the maximum play time
+.PP
+-e<editor>:
+Set the external editor, if any. For example if using the
+VI
+editor.
