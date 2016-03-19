@@ -1,6 +1,6 @@
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/root/bin"
 
-all: impctrl.pdf impcre.pdf hosting.pdf communication.pdf conimp.pdf telimp.pdf impserv.pdf impshut.pdf society.pdf security.pdf
+all: impctrl.pdf impcre.pdf hosting.pdf communication.pdf conimp.pdf telimp.pdf impserv.pdf impshut.pdf society.pdf security.pdf miners.pdf
 
 impctrl.pdf: impctrl.mom
 	@echo "Building ImpCtrl PDF file"
@@ -50,5 +50,10 @@ society.pdf: society.mom
 security.pdf: security.mom
 	@echo "Building Security PDF file"
 	@pdfmom security.mom > security.pdf
+	@echo "---- Built"
+
+miners.pdf: miners.mom
+	@echo "Building Miners PDF file"
+	@pdfmom miners.mom > miners.pdf
 	@echo "---- Built"
 
