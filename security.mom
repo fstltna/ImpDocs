@@ -25,7 +25,8 @@ start up an Imperium session.
 To prevent other people from reading the Imperium data files directory
 you need to be sure of a few things:
 .PP
-.LIST roman5
+.LIST DIGIT
+.PAD_LIST_DIGITS
 .ITEM
 Always make the Imperium server SUID to the owner of the Imperium programs. The server will take care to create all files with a umask of 077, so other people will not be able to read them.
 .ITEM

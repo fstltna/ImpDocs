@@ -10,7 +10,8 @@
 .COPYRIGHT DOC_COVER "1994-2016 Marisa Giancarla"
 .START
 "Normal" summary of hosting a game:
-.LIST roman8
+.LIST DIGIT
+.PAD_LIST_DIGITS
 .ITEM
 Decide where to put your data files
 .ITEM
@@ -34,7 +35,8 @@ Run the client program "ConImp" and try the game out. You may want to
 create a shell "wrapper" that turns on desired options (different port,
 no "log" command, etc) and replace the public "ConImp" link with your
 shell wrapper.
-.LIST roman8
+.LIST DIGIT
+.PAD_LIST_DIGITS
 .ITEM
 Use the "TelImp" client to accept incoming game players from the internet
 .LIST OFF
@@ -71,7 +73,8 @@ work if the server was down anyway).
 Normally you will place the files all in one directory, but it is possible to
 put them in several directories, and across multiple file systems if you
 wish. The files used by the game (and their sizes) are:
-.LIST roman8
+.LIST DIGIT
+.PAD_LIST_DIGITS
 .ITEM
 imperium.files:
 contains the paths to the other files/directories used by
@@ -153,7 +156,8 @@ space.
 You can also create 6 files in the directory where you start the server and
 they will be used, if present:
 .PP
-.LIST roman8
+.LIST DIGIT
+.PAD_LIST_DIGITS
 .ITEM
 imp.conMess:
 printed when a player first connects, before asking for
