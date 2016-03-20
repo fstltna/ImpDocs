@@ -1,8 +1,10 @@
 .PRINTSTYLE TYPESET
-.PAPER letter
+.PAPER A4
 .L_MARGIN .5i
 .R_MARGIN .5i
 .T_MARGIN .25i
+.HEADER_MARGIN .5i
+.FOOTER_MARGIN .5i
 .TITLE "Imperium - Communication"
 .AUTHOR "Marisa Giancarla"
 .COPYRIGHT DOC_COVER "1994-2016 Marisa Giancarla"
@@ -44,6 +46,7 @@ future there will be a new, fuller-featured editor, as soon as time
 permits it's integration into the Imperium library.
 .PP
 -----------------------------------(from the Amiga Empire manual by Chris Gray)
+.PP
 You will see the prompt:
 
     Enter text of telegram (max 1920 chars). End with . :

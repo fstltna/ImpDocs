@@ -3,6 +3,8 @@
 .L_MARGIN .5i
 .R_MARGIN .5i
 .T_MARGIN .25i
+.HEADER_MARGIN .25i
+.FOOTER_MARGIN .25i
 .TITLE "Imperium Security"
 .AUTHOR "Marisa Giancarla"
 .COPYRIGHT DOC_COVER "1994-2016 Marisa Giancarla"
